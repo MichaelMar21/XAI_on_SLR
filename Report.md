@@ -168,7 +168,7 @@ explainer = shap.Explainer(model)
 shap_values = explainer(X_test_sample)
 
 # Visualization options
-shap.plots.text(shap_values)  # for text models
+shap.plots.text(shap_values)  # Presenting created text and its SHAP values
 shap.plots.bar(shap_values)   # for tabular features
 ```
 
@@ -176,7 +176,7 @@ shap.plots.bar(shap_values)   # for tabular features
 
 ```python
 from lime.lime_text import LimeTextExplainer
-lime_explainer = LimeTextExplainer(class_names=['Non-Relevant','Relevant'])
+lime_explainer = LimeTextExplainer(class_names=['Non-Relevant','Relevant']) #creating LIME Explainer instance
 exp = lime_explainer.explain_instance(
     text_instance,
     predict_proba_function,
@@ -188,3 +188,14 @@ exp.show_in_notebook()
 LIME helps visualize which words in a single article drive the prediction toward Relevant or Non-Relevant.
 
 By following these steps—cleaning and merging text data, balancing classes, splitting into train/test sets, and applying different machine learning approaches—we establish a solid foundation for explainability methods.
+
+Beside all written steps & methods provided above (that can be found in the file *XAI_on_pubmed_data.ipynb*, additional tests were made on the LogisticRegression model, presented as part of the project of another project group - **Data Imbalance Team**. Based on their model's results, in the notebook *DW_main.ipynb* there are added additional lines, for XAI - LIME & SHAP. Main goal of this approach was to test how it behaves on scikit-learn models, that are achieving better results than LR & DT presented in the *XAI_on_pubmed_data.ipynb* files.
+
+---
+
+## Part 5: Preprocessing and Modeling Workflow
+
+
+
+
+
