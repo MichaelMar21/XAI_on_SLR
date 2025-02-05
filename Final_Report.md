@@ -193,7 +193,89 @@ Beside all written steps & methods provided above (that can be found in the file
 
 ---
 
-## Part 5: Preprocessing and Modeling Workflow
+## Part 5: Final Results
+
+### XAI on Deepseek model
+
+<p align="center">
+  <img src="reports/final_report_pngs/DEEPSEEK_SHAP_RV_1.png" alt="Force plot on data sample labeled as Relevant">
+</p>  
+
+<p align="center"><strong>Fig.1</strong> Force plot for a data sample classified as <strong>Relevant</strong>.</p>  
+
+A **force plot** in the SHAP framework visually represents how individual feature contributions push a model's prediction toward a specific class.  
+
+In this case, the resulting value is **0.93**, which represents the total **SHAP value score**. This indicates that the combined influence of all features supports the **label 1 (Relevant)**. However, the relatively small confidence level suggests some degree of uncertainty in the classification.
+
+<p align="center">
+  <img src="reports/final_report_pngs/DEEPSEEK_SHAP_TEXT.png" alt="Interactive text visualization of SHAP">
+</p>  
+
+<p align="center"><strong>Fig.2</strong> Interactive text visualization of SHAP for two examples (<strong>Class 1 and Class 0</strong>, respectively).</p>  
+
+This visualization displays the full input text in an interactive format. It allows the user to toggle between **SHAP contributions for Class 0 or Class 1**, highlighting which words influenced the model’s prediction toward each class. After pointing the mouse on one of the words, its contribution to the prediction is shown on the plot above the paragraph.
+
+<p align="center">
+  <img src="reports/final_report_pngs/SHAP_MEAN_BARPLOT.png" alt="SHAP Mean values Bar Plot">
+</p>  
+
+<p align="center"><strong>Fig.3</strong> SHAP mean bar plot showing the most influential words in the model's predictions.</p>  
+
+This visualization ranks the **top features contributing to the model's decision**, based on their mean absolute SHAP values. Words with **higher values** have a stronger influence on the output. The **sum of 269 other features** accounts for a large portion of the overall impact, while individual words like *"vasive"*, *"results"*, and *"pancreatic"* also significantly contribute to the prediction.
+
+---
+
+### XAI on Logistic Regression model
+
+<p align="center">
+  <img src="reports/final_report_pngs/LR_without_applying_ci_alg_LIME.png" alt="LIME on Logistic Regression">
+</p>  
+
+<p align="center"><strong>Fig. 4</strong> LIME Explanation for Logistic Regression without Class Imbalance Handling</p>  
+
+This visualization illustrates how the **model is heavily biased towards the "Non-Relevant" class**, predicting it with near **100% confidence**. The presence of **imbalanced data** likely caused the model to overfit to this majority class. Additionally, the features shown contribute to the prediction, but due to the **Tf-Idf tokenizer's nature**, some extracted words may appear **less interpretable**.
+
+<p align="center">
+  <img src="reports/final_report_pngs/LR_without_applying_ci_alg_SHAP_force.png" alt="SHAP Force Plot for Logistic Regression">
+</p>  
+
+<p align="center"><strong>Fig. 5</strong> SHAP Force Plot for Logistic Regression without Class Imbalance Handling</p>  
+
+This **SHAP Force Plot** confirms the previous observations. The model assigns a **total SHAP value of -4.24**, indicating a **strong confidence in predicting label 0 (Non-Relevant)**. This further supports the notion that the model is heavily biased towards the majority class.
+
+<p align="center">
+  <img src="reports/final_report_pngs/LR_downsampling_SHAP.png" alt="SHAP Force Plot for Logistic Regression with Downsampling">
+</p>  
+
+<p align="center"><strong>Fig. 6</strong> SHAP Force Plot for Logistic Regression on Data with Downsampling Algorithm</p>  
+
+This **SHAP Force Plot** shows a **total SHAP value of -2.94**, indicating that the model is becoming **less certain in predicting label 0 (Non-Relevant)**. While it still leans towards this prediction, the lower absolute value suggests a more balanced decision-making process compared to the previous version without class imbalance handling.
+
+<p align="center">
+  <img src="reports/final_report_pngs/LR_ds_us_LIME.png" alt="LIME on Logistic Regression with Upsampling and Downsampling">
+</p>  
+
+<p align="center"><strong>Fig. 7</strong> LIME on Logistic Regression with Upsampling and Downsampling</p>  
+
+This **LIME visualization** shows that the model is now predicting the **Non-Relevant** label with **less certainty (81%)** compared to earlier cases. The contribution of individual features remains evident, with some influencing the **Relevant** class as well. The balancing techniques applied to the data have resulted in a more **uncertain classification**, making the model's predictions more flexible.
+
+---
+## Part 6: Conclusions
+
+Explainable AI (XAI) plays a crucial role in overcoming the limitations of **black-box models**, allowing us to understand how predictions are made. By using **SHAP and LIME**, we can visualize the contribution of individual features, which is particularly valuable in **text-based tasks** where model decisions may not always be intuitive.  
+
+Python libraries **SHAP** and **LIME** provide clear and interpretable visualizations, helping researchers and practitioners **gain deeper insights** into their models. While **XAI methods** are relatively easy to implement, they require **significant expertise** in Python libraries to correctly initialize and use the appropriate **Explainer instances**, ensuring accurate and meaningful explanations.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
