@@ -18,7 +18,7 @@ This is where **Explainable AI (XAI)** comes in. XAI methods help make the model
 
 ### 3. Objective of This Work
 
-The main goal here is to explore and apply XAI methods to the citation screening models used in the CRUISE project. The project wants to see if techniques such as SHAP (SHapley Additive exPlanations) and LIME (Local Interpretable Model-agnostic Explanations) can improve users' trust and understanding. In other words, the focus is on explaining _why_ an article is deemed relevant or irrelevant, rather than just assigning a label.
+The project wants to see if techniques such as SHAP (SHapley Additive exPlanations) and LIME (Local Interpretable Model-agnostic Explanations) can improve users' trust and understanding. In other words, the focus is on explaining _why_ an article is deemed relevant or irrelevant, rather than just assigning a label.
 
 We will take a balanced subset of the PubMed data (focusing on the top three largest queries to make the problem more manageable) and train different models to classify articles as relevant or not. Then, we will apply SHAP and LIME to these models and evaluate how well these explanations help us interpret the decisions.
 
@@ -36,19 +36,23 @@ Explainable AI (XAI) refers to techniques that provide insights into how AI or m
 
 Two popular methods for explaining model decisions are **SHAP** and **LIME** .
 
-#### SHAP (SHapley Additive exPlanations)
+#### SHAP (SHapley Additive Explanations)
 
-- **Key idea:** It's based on Shapley values from game theory. Think of each feature (such as a word in the abstract) as a "player" in a cooperative game that contributes to the final decision.
-- **What it does:** SHAP calculates how much each feature (word, phrase, etc.) changes the prediction from what would happen if that feature were absent. These contributions can be positive or negative, indicating whether the feature pushes the prediction toward "relevant" or "irrelevant."
+* **Definition/Key Points** :
+  * Based on Shapley values from game theory, it provides mathematically rigorous explanations by distributing feature importance in a way that preserves model consistency.
+  * Widely used for interpretability, especially in high-stakes domains where precise and reliable explanations are needed.
+* **Limitations** :
+  * Handling highly correlated features can be challenging and can make SHAP computationally intensive—an important consideration when dealing with large or complex citation datasets.
 
 #### LIME (Local Interpretable Model-agnostic Explanations)
 
-- **Key idea:** LIME explains individual predictions by approximating the complex model locally with a simpler, more interpretable model (like a small linear model around one data point).
-- **What it does:** It looks at one article at a time, slightly perturbs the text, and sees how the main model's predictions change. It then figures out which words are most responsible for pushing the model's decision in one direction or the other.
+* **Definition/Key Points** :
+  * Model-agnostic approach that interprets complex models locally by creating simpler, approximate models around individual predictions.
+  * Particularly suitable for domain-specific tasks like citation screening, where smaller, more focused explanations can align well with user expertise.
+* **Limitations** :
+  * Lacks stability and consistency when applied to high-volume or large-scale datasets, which can lead to varying explanations for similar instances.
 
 Both SHAP and LIME are model-agnostic, meaning they work with many types of models—ranging from logistic regression and random forests to deep learning Transformers. In practice, we can run these methods after training our classification models and visually inspect which features most contribute to predictions of relevance or irrelevance.
-
-I'll format the document using Markdown to improve readability while maintaining the original content structure.
 
 ---
 
